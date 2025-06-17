@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:go_router/go_router.dart'; 
+import 'package:go_router/go_router.dart';
 
-import '../details/event_hall_package.dart'; 
+import '../details/event_hall_package.dart';
 
 class EventHallList extends StatelessWidget {
-  final List<EventHallPackage> eventHallPackages; 
+  final List<EventHallPackage> eventHallPackages;
   final Size size;
 
   const EventHallList({
@@ -39,7 +39,7 @@ class EventHallList extends StatelessWidget {
           SizedBox(height: size.width * 0.025),
           GridView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(), 
+            physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: gridCrossAxisCount,
               childAspectRatio: size.width / (size.height * 0.28),
@@ -50,8 +50,7 @@ class EventHallList extends StatelessWidget {
             itemBuilder: (context, index) {
               final package = eventHallPackages[index];
               return InkWell(
-                onTap: () {
-                },
+                onTap: () {},
                 borderRadius: BorderRadius.circular(16),
                 child: Container(
                   decoration: BoxDecoration(
@@ -95,7 +94,7 @@ class EventHallList extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    package.title, 
+                                    package.title,
                                     style: GoogleFonts.lato(
                                       fontWeight: FontWeight.bold,
                                       fontSize: size.width * 0.037,
@@ -115,7 +114,7 @@ class EventHallList extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4),
-                                 
+
                                   Text(
                                     'Price: RM${package.price.toStringAsFixed(2)}/day',
                                     style: GoogleFonts.lato(
@@ -128,23 +127,39 @@ class EventHallList extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: SizedBox(
                                       height: 28,
-                                      width: constraints.maxWidth < 100 ? constraints.maxWidth : 90,
+                                      width: constraints.maxWidth < 100
+                                          ? constraints.maxWidth
+                                          : 90,
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          context.push('/booking', extra: package); 
+                                          context.push(
+                                            '/booking',
+                                            extra: package,
+                                          );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color.fromARGB(255, 192, 107, 241),
+                                          backgroundColor: const Color.fromARGB(
+                                            255,
+                                            192,
+                                            107,
+                                            241,
+                                          ),
                                           foregroundColor: Colors.white,
-                                          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 0,
+                                            horizontal: 8,
+                                          ),
                                           textStyle: GoogleFonts.lato(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13,
                                           ),
                                           minimumSize: Size.zero,
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
                                           ),
                                         ),
                                         child: const FittedBox(

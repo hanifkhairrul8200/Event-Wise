@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:go_router/go_router.dart'; 
-import '../details/event_hall_package.dart'; 
+import 'package:go_router/go_router.dart';
+import '../details/event_hall_package.dart';
 
 class EventHallPreview extends StatelessWidget {
   final List<EventHallPackage> eventHallPackages;
@@ -15,12 +15,12 @@ class EventHallPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gridCrossAxisCount = 1; 
+    final gridCrossAxisCount = 1;
 
-    final displayCount = eventHallPackages.length.clamp(0, 4); 
+    final displayCount = eventHallPackages.length.clamp(0, 4);
 
     if (displayCount == 0) {
-      return const SizedBox.shrink(); 
+      return const SizedBox.shrink();
     }
 
     return Padding(
@@ -32,21 +32,21 @@ class EventHallPreview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Featured Event Halls', 
+                'Featured Event Halls',
                 style: GoogleFonts.lato(
-                  fontWeight: FontWeight.bold, 
+                  fontWeight: FontWeight.bold,
                   fontSize: size.width * 0.045,
                   color: Colors.black,
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  context.go('/event-hall'); 
+                  context.go('/event-hall');
                 },
                 child: Text(
                   'See All',
                   style: GoogleFonts.lato(
-                    fontWeight: FontWeight.w500, 
+                    fontWeight: FontWeight.w500,
                     fontSize: size.width * 0.035,
                     color: Colors.blue,
                   ),
@@ -57,18 +57,18 @@ class EventHallPreview extends StatelessWidget {
           SizedBox(height: size.width * 0.025),
           GridView.builder(
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(), 
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: gridCrossAxisCount,
-              childAspectRatio: size.width / (size.height * 0.28), 
+              childAspectRatio: size.width / (size.height * 0.28),
               crossAxisSpacing: size.width * 0.04,
               mainAxisSpacing: size.width * 0.04,
             ),
-            itemCount: displayCount, 
+            itemCount: displayCount,
             itemBuilder: (context, index) {
               final package = eventHallPackages[index];
               return InkWell(
-                onTap: () {                  
+                onTap: () {
                   context.push('/booking', extra: package);
                 },
                 borderRadius: BorderRadius.circular(16),
@@ -97,7 +97,7 @@ class EventHallPreview extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.asset(
-                              package.image, 
+                              package.image,
                               width: double.infinity,
                               height: double.infinity,
                               fit: BoxFit.cover,
@@ -114,7 +114,7 @@ class EventHallPreview extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    package.title, 
+                                    package.title,
                                     style: GoogleFonts.lato(
                                       fontWeight: FontWeight.bold,
                                       fontSize: size.width * 0.037,
@@ -124,7 +124,7 @@ class EventHallPreview extends StatelessWidget {
                                   ),
                                   SizedBox(height: size.height * 0.007),
                                   Text(
-                                    package.description, 
+                                    package.description,
                                     style: GoogleFonts.lato(
                                       fontWeight: FontWeight.normal,
                                       fontSize: size.width * 0.029,
@@ -146,23 +146,39 @@ class EventHallPreview extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: SizedBox(
                                       height: 28,
-                                      width: constraints.maxWidth < 100 ? constraints.maxWidth : 90,
+                                      width: constraints.maxWidth < 100
+                                          ? constraints.maxWidth
+                                          : 90,
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          context.push('/booking', extra: package);
+                                          context.push(
+                                            '/booking',
+                                            extra: package,
+                                          );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color.fromARGB(255, 192, 107, 241),
+                                          backgroundColor: const Color.fromARGB(
+                                            255,
+                                            192,
+                                            107,
+                                            241,
+                                          ),
                                           foregroundColor: Colors.white,
-                                          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 0,
+                                            horizontal: 8,
+                                          ),
                                           textStyle: GoogleFonts.lato(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13,
                                           ),
                                           minimumSize: Size.zero,
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
                                           ),
                                         ),
                                         child: const FittedBox(

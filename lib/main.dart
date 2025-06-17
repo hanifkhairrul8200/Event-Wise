@@ -1,3 +1,4 @@
+import 'package:event_wise_2/page/mybookings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:event_wise_2/component/drawer.dart';
 import 'package:flutter/material.dart';
@@ -10,19 +11,21 @@ import 'component/AppBar.dart';
 import 'app_state.dart';
 import 'page/home_page.dart';
 import 'page/event_hall_page.dart';
-import 'page/booking_page.dart'; 
-import 'details/event_hall_package.dart'; 
+import 'page/booking_page.dart';
+import 'details/event_hall_package.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => ApplicationState(),
-    builder: (context, child) => const MyApp(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ApplicationState(),
+      builder: (context, child) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -35,10 +38,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Event Wise',
-      routerConfig: _router(),
-    );
+    return MaterialApp.router(title: 'Event Wise', routerConfig: _router());
   }
 
   GoRouter _router() {
@@ -52,9 +52,7 @@ class _MyAppState extends State<MyApp> {
                 ForgotPasswordAction((context, email) {
                   final uri = Uri(
                     path: '/sign-in/forgot-password',
-                    queryParameters: <String, String?>{
-                      'email': email,
-                    },
+                    queryParameters: <String, String?>{'email': email},
                   );
                   context.push(uri.toString());
                 }),
@@ -70,9 +68,9 @@ class _MyAppState extends State<MyApp> {
 
                   if (user != null) {
                     if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Welcome!')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text('Welcome!')));
                       context.go('/');
                     }
                   }
@@ -102,14 +100,14 @@ class _MyAppState extends State<MyApp> {
             );
           },
           routes: [
-            GoRoute(
-              path: '/',
-              builder: (context, state) => const HomePage(),
-            ),
+            GoRoute(path: '/', builder: (context, state) => const HomePage()),
             GoRoute(
               path: '/profile',
               redirect: (context, state) {
-                final appState = Provider.of<ApplicationState>(context, listen: false);
+                final appState = Provider.of<ApplicationState>(
+                  context,
+                  listen: false,
+                );
                 if (!appState.loggedIn) {
                   return '/sign-in';
                 }
@@ -119,24 +117,34 @@ class _MyAppState extends State<MyApp> {
                 return const CustomProfilePage();
               },
             ),
+
             GoRoute(
-              path: '/event-hall', 
+              path: '/booking',
+              builder: (context, state) {
+                final package = state.extra as EventHallPackage?;
+                if (package == null) {
+                  return const Scaffold(
+                    body: Center(child: Text('No event package selected.')),
+                  );
+                }
+                return BookingPage(eventHallPackage: package);
+              },
+            ),
+
+            GoRoute(
+              path: '/event-hall',
               builder: (context, state) {
                 return EventHallPage(
                   eventHallPackages: eventHallPackages,
-                  headerMaxExtent: 200, 
+                  headerMaxExtent: 200,
                 );
               },
             ),
 
             GoRoute(
-              path: '/booking',
+              path: '/mybookings',
               builder: (context, state) {
-                final EventHallPackage? package = state.extra as EventHallPackage?;
-                if (package == null) {
-                  return const Text('Error: Event Hall Package details not found.');
-                }
-                return BookingPage(eventHallPackage: package);
+                return MyBookingsPage();
               },
             ),
           ],

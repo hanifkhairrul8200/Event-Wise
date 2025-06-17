@@ -3,7 +3,7 @@ class EventHallPackage {
   final String title;
   final String description;
   final String image;
-  final double price; 
+  final double price;
 
   const EventHallPackage({
     required this.id,

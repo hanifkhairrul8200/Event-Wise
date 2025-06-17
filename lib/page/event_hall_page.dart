@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../component/event_hall_list.dart';
-import '../details/event_hall_package.dart'; 
+import '../details/event_hall_package.dart';
 
 class EventHallPage extends StatelessWidget {
-  const EventHallPage({super.key, required this.eventHallPackages, required int headerMaxExtent});
+  const EventHallPage({
+    super.key,
+    required this.eventHallPackages,
+    required int headerMaxExtent,
+  });
 
-  final List<EventHallPackage> eventHallPackages; 
+  final List<EventHallPackage> eventHallPackages;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +51,9 @@ class EventHallPage extends StatelessWidget {
               child: Column(
                 children: [
                   EventHallList(
-                    eventHallPackages: eventHallPackages, 
+                    eventHallPackages: eventHallPackages,
                     size: size,
-                  )
+                  ),
                 ],
               ),
             ),
